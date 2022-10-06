@@ -1,30 +1,47 @@
+//         v-bind:value="post.title"
+//        @input="post.title = $event.target.value"
+//         v-bind:value="post.body"
+// @input="post.body = $event.target.value"
 <template>
     <form @submit.prevent>
         <h4>Создание поста</h4>
-        <input 
-        v-bind:value="title"
-        @input="title = $event.target.value"
-        class="input"
+        <my-input 
+        style="margin-bottom: 5px;"
+        v-model="post.title"
         type="text"
         placeholder="Название">
 
-        <input
-        v-bind:value="body"
-        @input="body = $event.target.value"
-        class="input"
+        <my-input
+        v-model="post.body"
         type="text"
         placeholder="Описание">
 
-        <button
-        class="btn">Создать</button>
+        <my-button
+        @click="createPost"
+        class="btn" style="align-self: flex-end; margin: 15px 0 15px 0;">Создать</my-button>
     </form>
 </template>
 
 <script>
 export default {
-    setup() {
-        
+    data() {
+        return {
+            post: {
+                title: '',
+                body: ''
+            }
+        }
     },
+    methods: {
+        createPost() {
+            this.post.id = Date.now();
+            this.$emit('create', this.post);
+            this.post = {
+                title: '',
+                body: ''
+            }
+        },
+    }
 }
 </script>
 
@@ -32,14 +49,5 @@ export default {
     form {
     display: flex;
     flex-direction: column;
-    }
-    .btn {
-    align-self: flex-end;
-    margin: 15px;
-    }
-    .input {
-    width: 100%;
-    border: 1px solid #000;
-    padding: 5px;
     }
 </style>

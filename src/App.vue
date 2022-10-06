@@ -1,13 +1,17 @@
 <template>
     <div class="app">
-        <post-form/>
-        <post-list/>    
+        <post-form 
+        @create="createPost"
+        />
+        <post-list
+        :posts="posts"
+        />    
     </div>
 </template>
 
 <script>
 import PostForm from "./components/PostForm";
-import PostList from "@/components/PostList";
+import PostList from "./components/PostList";
 
 export default {
     components: {
@@ -22,24 +26,13 @@ export default {
                 {id: "3", title: "Javascript 3", body: "Описание"},
                 {id: "4", title: "Javascript 4", body: "Описание"},
             ],
-            title: '',
-            body: '',
         }
     },
     methods: {
-        createPost() {
-            const newPost = {
-                id: Date.now(),
-                title: this.title,
-                body: this.body,
-            }
-            this.posts.push(newPost);
-            this.title = '';
-            this.body = '';
-        },
-        // inputTitle(event) {
-        //     this.title = event.target.value;
-        // }
+        createPost(post) {
+            console.log(post);
+            this.posts.push(post);
+        }
     }
 }
 </script>

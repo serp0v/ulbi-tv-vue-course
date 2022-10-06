@@ -1,28 +1,31 @@
 <template>
-    <div
-        class="post"
-        v-for="post in posts">
-            <div class="">Название <strong>{{post.title}}</strong></div>
-            <div class="">Описание <strong>{{post.body}}</strong></div>
+    <div>
+        <h3 style="display: flex; justify-content: center;border: 1px solid black;padding: 5px;">Список постов</h3>
+        <post-item
+        v-for="post in posts"
+        :key="post.id"
+        :post="post"
+        />
     </div>
 </template>
 
 <script>
+import PostItem from './PostItem.vue'
 export default {
-    setup() {
-        
-    },
+  components: { PostItem },
+    props: {
+        posts:{
+            type: Array,
+            required: true,
+        }
+    }
 }
 </script>
 
 <style>
     .post {
-    /* height: 300px;
-    width: 300px; */
-    /* display: flex; */
     padding: 15px;
     margin-top: 5px;
     border: 1px solid #000;
-    /* flex-direction: column; */
     }
 </style>
